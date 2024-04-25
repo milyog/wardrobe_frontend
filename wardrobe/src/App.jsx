@@ -1,10 +1,8 @@
 import Shoes from "./shoes/Shoes";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
-
- return(
-  <Shoes />
- );
+  return <Shoes />;
 }
 
-export default App
+export default App;
