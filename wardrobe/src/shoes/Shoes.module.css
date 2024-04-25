@@ -1,39 +1,7 @@
-.card {
-    border: 1px solid hsl(0, 0%, 80%);
-    border-radius: 10px;
-    box-shadow: 5px 5px 5px hsl(0, 0%, 0%, 0.1);
-    padding: 20px;
-    margin: 10px;
-    text-align: left;
-    max-width: 250px;
-    display: inline-block;
-  }
-
 .noBullets {
     list-style-type: none;
 }
-  
-.cardImage { /*
-    max-width: 40%;
-    height: auto;
-    border-radius: 50%;
-    border: 2px solid black;
-    margin-bottom: 10px;*/
-  }
-  
-  .card .cardTitle {/*
-    font-family: Arial, Helvetica, sans-serif;
-    margin: 0;
-    color: hsl(0, 0%, 20%);*/
-  }
-  
-  .card .cardText {/*
-    font-family: Arial, Helvetica, sans-serif;
-    color: hsl(0, 0%, 30%);*/
-  }
-  
-  ul.shoes > li {/*
-    font-family: Arial, Helvetica, sans-serif;
-    color: hsl(0, 0%, 30%);
-    font-weight: bold;*/
-  }
+
+.headerStyle {
+  text-align: center;
+}
