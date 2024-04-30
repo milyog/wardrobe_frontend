@@ -1,8 +1,8 @@
-import Routing from "./Routes";
+import Shoes from "./shoes/Shoes";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
-  return <Routing />;
+  return <Shoes />;
 }
 
 export default App;
