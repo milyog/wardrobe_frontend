@@ -1,52 +1,71 @@
 import { useEffect, useState } from "react";
 import styles from "./Shoes.module.css";
-import shoePicture from "../assets/shoes.jpg";
 import WardrobeAPI from "../api/WardrobeAPI";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
+import { Link } from "react-router-dom";
 
 function Shoes() {
   const [shoes, setShoes] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const listItems = shoes.map((shoe) => (
-    <Card className="bg-info text-light">
+    <Card key={shoe.id}>
       <Card.Body>
-        <li key={shoe.id}>
-          <Card.Title className="fs-2 fw-bold">
+        <li>
+          <p className="fs-2">
             {shoe.brand} {shoe.model}
-          </Card.Title>
-          <Card.Text>
-            <p>
-              <b>Kategori:</b> {shoe.category}
-            </p>
-            <p>
-              <b>Material:</b> {shoe.material}
-            </p>
-            <p>
-              <b>Färg:</b> {shoe.color}
-            </p>
-            <p>
-              <b>Storlek:</b> {shoe.size}
-            </p>
-            <p>
-              <b>Pris:</b> {shoe.price}
-            </p>
-            <p>
-              <b>Beskrivning:</b> {shoe.description}
-            </p>
-          </Card.Text>
+          </p>
+          <p>Kategori: {shoe.category}</p>
+          <p>Material: {shoe.material}</p>
+          <p>Färg: {shoe.color}</p>
+          <p>Storlek: {shoe.size}</p>
+          <p>Pris: {shoe.price}</p>
+          <p>Beskrivning: {shoe.description}</p>
         </li>
+        <Link to={`/read/${shoe.id}`} className={`btn btn-sm btn-info me-2`}>
+          Visa
+        </Link>
+        <Link
+          to={`/update/${shoe.id}`}
+          className={`btn btn-sm btn-primary me-2`}
+        >
+          Redigera
+        </Link>
+        <Button
+          onClick={() => handleDelete(shoe.id)}
+          className={`btn btn-sm btn-danger`}
+        >
+          Ta bort
+        </Button>
       </Card.Body>
     </Card>
   ));
 
+  const handleDelete = async (id) => {
+    const confirm = window.confirm("Vill du ta bort den här posten?");
+
+    if (confirm) {
+      try {
+        await WardrobeAPI.delete("/PairOfShoes/" + id);
+        alert("Post borttagen!");
+        window.location.reload();
+      } catch (err) {
+        console.log(`Fel: ${err.message}`); // Lägg till felhantering
+      }
+    }
+  };
+
   useEffect(() => {
     const fetchAllShoes = async () => {
+      setIsLoading(true);
       try {
         const response = await WardrobeAPI.get("/PairOfShoes");
         setShoes(response.data);
         console.log(response.data);
+        setIsLoading(false);
       } catch (err) {
+        setIsLoading(false);
         if (err.response) {
           //Ej 200-någonting
           console.log(err.response.data); // Alternativen beror på
@@ -63,10 +82,19 @@ function Shoes() {
   }, []);
 
   return (
-    <div>
+    <>
       <h1 className={styles.headerStyle}>Skor</h1>
-      <ul className={styles.noBullets}>{listItems}</ul>
-    </div>
+      <Link to="/create" className="btn btn-success">
+        Skapa ny
+      </Link>
+      {isLoading ? (
+        <div className="spinner-border" role="status">
+          <span className="visually-hidden">Laddar ...</span>
+        </div>
+      ) : (
+        <ul className={styles.noBullets}>{listItems}</ul>
+      )}
+    </>
   );
 }
 
