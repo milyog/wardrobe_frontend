@@ -5,4 +5,4 @@ function App() {
   return <Routing />;
 }
 
-export default App; //
+export default App;
