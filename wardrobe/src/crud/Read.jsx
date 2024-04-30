@@ -69,4 +69,4 @@ function Read() {
   );
 }
 
-export default Read; //kommentar
+export default Read; //kommentars

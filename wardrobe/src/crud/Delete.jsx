@@ -2,4 +2,4 @@ function Delete() {
   return <div>Delete</div>;
 }
 
-export default Delete; //Kommentar
+export default Delete; //Kommentars
