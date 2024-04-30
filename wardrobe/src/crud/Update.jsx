@@ -48,7 +48,7 @@ function Update() {
       console.log(response.values);
       alert("Post updaterad!");
     } catch (err) {
-      console.log(`Fel: ${err.message}`); // Lägg till felhantering
+      console.log(`Fel: ${err.message}`);
     }
   };
 
