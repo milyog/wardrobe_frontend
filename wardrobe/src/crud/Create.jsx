@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import WardrobeAPI from "../api/WardrobeAPI";
 
-function Update() {
+function Create() {
   const [values, setValues] = useState({
     brand: "",
     model: "",
@@ -14,48 +14,26 @@ function Update() {
     description: "",
   });
 
-  const { id } = useParams();
-
-  useEffect(() => {
-    const fetchPairOfShoes = async () => {
-      try {
-        const response = await WardrobeAPI.get("/PairOfShoes/" + id);
-        setValues(response.data);
-        console.log(response.data);
-      } catch (err) {
-        if (err.response) {
-          console.log(err.response.data);
-          console.log(err.response.status);
-          console.log(err.response.headers);
-        } else {
-          console.log(`Error: ${err.message}`);
-        }
-      }
-    };
-
-    fetchPairOfShoes();
-  }, []);
-
-  const handleUpdate = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       console.log(values);
-      const response = await WardrobeAPI.put(
-        "/PairOfShoes/" + id,
+      const response = await WardrobeAPI.post(
+        "/PairOfShoes",
         new URLSearchParams(values)
       );
       console.log(response.values);
-      alert("Post updaterad!");
+      alert("Post skapad!");
     } catch (err) {
-      console.log(`Fel: ${err.message}`);
+      console.log(`Fel: ${err.message}`); // Lägg till felhantering
     }
   };
 
   return (
     <>
-      <h1>Redigera</h1>
-      <form onSubmit={handleUpdate}>
+      <h1>Skapa ny</h1>
+      <form onSubmit={handleSubmit}>
         <label htmlFor="brand" className="me-2">
           Märke
         </label>
@@ -63,7 +41,6 @@ function Update() {
           type="text"
           name="brand"
           placeholder="Ange märke"
-          value={values.brand}
           onChange={(e) => setValues({ ...values, brand: e.target.value })}
         />
         <br />
@@ -74,7 +51,6 @@ function Update() {
           type="text"
           name="model"
           placeholder="Ange modell"
-          value={values.model}
           onChange={(e) => setValues({ ...values, model: e.target.value })}
         />
         <br />
@@ -85,7 +61,6 @@ function Update() {
           type="text"
           name="category"
           placeholder="Ange kategori"
-          value={values.category}
           onChange={(e) => setValues({ ...values, category: e.target.value })}
         />
         <br />
@@ -96,7 +71,6 @@ function Update() {
           type="text"
           name="material"
           placeholder="Ange material"
-          value={values.material}
           onChange={(e) => setValues({ ...values, material: e.target.value })}
         />
         <br />
@@ -107,7 +81,6 @@ function Update() {
           type="text"
           name="color"
           placeholder="Ange färg"
-          value={values.color}
           onChange={(e) => setValues({ ...values, color: e.target.value })}
         />
         <br />
@@ -118,7 +91,6 @@ function Update() {
           type="text"
           name="size"
           placeholder="Ange storlek"
-          value={values.size}
           onChange={(e) => setValues({ ...values, size: e.target.value })}
         />
         <br />
@@ -129,7 +101,6 @@ function Update() {
           type="number"
           name="price"
           placeholder="Ange pris"
-          value={values.price}
           onChange={(e) => setValues({ ...values, price: e.target.value })}
         />
         <br />
@@ -140,13 +111,12 @@ function Update() {
           type="text"
           name="description"
           placeholder="Ange beskrivning"
-          value={values.description}
           onChange={(e) =>
             setValues({ ...values, description: e.target.value })
           }
         />
         <br />
-        <input type="submit" value="Ändra" className="btn btn-success" />
+        <input type="submit" value="Skapa" className="btn btn-success" />
         <Link to="/shoes" className="btn btn-primary">
           Tillbaka
         </Link>
@@ -155,4 +125,4 @@ function Update() {
   );
 }
 
-export default Update; //
+export default Create; //
