@@ -155,4 +155,4 @@ function Update() {
   );
 }
 
-export default Update; //Kommentars
+export default Update;

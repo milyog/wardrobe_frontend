@@ -98,4 +98,4 @@ function Shoes() {
   );
 }
 
-export default Shoes; //Kommentars
+export default Shoes;

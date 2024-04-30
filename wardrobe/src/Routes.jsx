@@ -19,4 +19,4 @@ function Routing() {
   );
 }
 
-export default Routing; //Kommentars
+export default Routing;

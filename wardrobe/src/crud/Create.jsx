@@ -125,4 +125,4 @@ function Create() {
   );
 }
 
-export default Create; //Kommentars
+export default Create;

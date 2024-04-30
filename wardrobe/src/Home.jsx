@@ -11,4 +11,4 @@ function Home() {
   );
 }
 
-export default Home; //Kommentars
+export default Home;
