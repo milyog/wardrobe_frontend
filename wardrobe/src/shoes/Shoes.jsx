@@ -17,11 +17,30 @@ function Shoes() {
             {shoe.brand} {shoe.model}
           </p>
           <p>Kategori: {shoe.category}</p>
+          {/*
           <p>Material: {shoe.material}</p>
           <p>Färg: {shoe.color}</p>
           <p>Storlek: {shoe.size}</p>
           <p>Pris: {shoe.price}</p>
           <p>Beskrivning: {shoe.description}</p>
+          */}
+          <p>
+            Använd antal gånger:{" "}
+            {/*}
+            {shoe.usageLogs.map(
+              (usageLog) => usageLog.wearCounter + ":" + " " + usageLog.wearDate
+            )}*/}
+            {shoe.usageLogs.length > 0
+              ? shoe.usageLogs[shoe.usageLogs.length - 1].wearCounter
+              : "Ingen uppgift än."}
+          </p>
+          <p>
+            {" "}
+            Senast använd:{" "}
+            {shoe.usageLogs.length > 0
+              ? shoe.usageLogs[shoe.usageLogs.length - 1].wearDate
+              : "Ingen uppgift än."}
+          </p>
         </li>
         <Link to={`/read/${shoe.id}`} className={`btn btn-sm btn-info me-2`}>
           Visa
@@ -86,6 +105,9 @@ function Shoes() {
       <h1 className={styles.headerStyle}>Skor</h1>
       <Link to="/create" className="btn btn-success">
         Skapa ny
+      </Link>
+      <Link to={"/"} className="btn btn-primary">
+        Tillbaka
       </Link>
       {isLoading ? (
         <div className="spinner-border" role="status">

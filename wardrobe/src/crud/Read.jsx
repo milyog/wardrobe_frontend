@@ -9,6 +9,16 @@ function Read() {
   const [isLoading, setIsLoading] = useState(false);
   const { id } = useParams();
 
+  const updateUsage = async () => {
+    try {
+      await WardrobeAPI.post("/PairOfShoes/" + id);
+      alert("Användning uppdaterad!");
+      window.location.reload();
+    } catch (err) {
+      console.log(`Fel: ${err.message}`); // Lägg till felhantering
+    }
+  };
+
   useEffect(() => {
     const fetchPairOfShoes = async () => {
       setIsLoading(true);
@@ -53,13 +63,33 @@ function Read() {
             <p>Storlek: {shoe.size}</p>
             <p>Pris: {shoe.price}</p>
             <p>Beskrivning: {shoe.description}</p>
+            <p>
+              Använd antal gånger:{" "}
+              {Array.isArray(shoe.usageLogs) && shoe.usageLogs.length > 0
+                ? shoe.usageLogs[shoe.usageLogs.length - 1].wearCounter
+                : "Ingen uppgift än."}
+              <input
+                onClick={updateUsage}
+                type="submit"
+                value=" + "
+                className="btn btn-sm btn-success ms-2"
+              />
+            </p>
+
+            <p>
+              {" "}
+              Senast använd:{" "}
+              {Array.isArray(shoe.usageLogs) && shoe.usageLogs.length > 0
+                ? shoe.usageLogs[shoe.usageLogs.length - 1].wearDate
+                : "Ingen uppgift än."}
+            </p>
             <Link
               to={`/update/${id}`}
               className={`btn btn-sm btn-primary me-2`}
             >
               Redigera
             </Link>
-            <Link to={"/shoes"} className="btn btn-sm btn-success">
+            <Link to={"/shoes"} className="btn btn-sm btn-success me-2">
               Tillbaka
             </Link>
           </Card.Body>
